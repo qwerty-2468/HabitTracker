@@ -21,19 +21,3 @@ app.use(express.json());
 
 const habitsRouter = require("./routes/habits");
 app.use("/habits", habitsRouter);
-
-// // Add a new document to the collection
-// router.post("/", async (req, res) => {
-//   let collection = await db.collection("posts");
-//   let newDocument = req.body;
-//   newDocument.date = new Date();
-//   let result = await collection.insertOne(newDocument);
-//   res.send(result).status(204);
-// });
-
-// // Get a list of 50 posts
-// router.get("/", async (req, res) => {
-//   let collection = await db.collection("posts");
-//   let results = await collection.find({}).limit(50).toArray();
-//   res.send(results).status(200);
-// });
