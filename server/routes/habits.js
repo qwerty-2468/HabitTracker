@@ -17,7 +17,7 @@ router.get("/:id", getHabit, (req, res) => {
 
 router.post("/", async (req, res) => {
   const habit = new Habit({
-    name: req.body.name,
+    title: req.body.title,
     frequency: req.body.frequency,
     date: req.body.date,
     label: req.body.label,
@@ -32,8 +32,8 @@ router.post("/", async (req, res) => {
 });
 
 router.patch("/:id", getHabit, async (req, res) => {
-  if (req.body.name != null) {
-    res.habit.name = req.body.name;
+  if (req.body.title != null) {
+    res.habit.title = req.body.title;
   }
   if (req.body.frequency != null) {
     res.habit.frequency = req.body.frequency;
