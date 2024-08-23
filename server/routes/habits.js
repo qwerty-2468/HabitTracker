@@ -19,8 +19,9 @@ router.post("/", async (req, res) => {
   const habit = new Habit({
     title: req.body.title,
     frequency: req.body.frequency,
-    date: req.body.date,
+    dateCreated: req.body.dateCreated,
     label: req.body.label,
+    days: req.body.days,
   });
 
   try {
@@ -38,16 +39,36 @@ router.patch("/:id", getHabit, async (req, res) => {
   if (req.body.frequency != null) {
     res.habit.frequency = req.body.frequency;
   }
-  if (req.body.date != null) {
-    res.habit.date = req.body.date;
+  if (req.body.dateCreated != null) {
+    res.habit.dateCreated = req.body.dateCreated;
   }
   if (req.body.label != null) {
     res.habit.label = req.body.label;
+  }
+  if (req.body.days != null) {
+    res.habit.days = req.body.days;
   }
 
   try {
     const updatedHabit = await res.habit.save();
     res.json(updatedHabit);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.put("/:id/completed", async (req, res) => {
+  try {
+    const habit = await Habit.findById(req.params.id);
+    habit.completed.indexOf(req.body.date) === -1
+      ? habit.completed.push(req.body.date)
+      : habit.completed.splice(habit.completed.indexOf(req.body.date), 1);
+    const updatedHabit = await habit.save();
+    res.json({
+      message:
+        "Habit completed on " +
+        updatedHabit.completed[updatedHabit.completed.length - 1],
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

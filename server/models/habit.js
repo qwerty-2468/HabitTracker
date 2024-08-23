@@ -9,7 +9,7 @@ const habitSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
+  dateCreated: {
     type: Date,
     required: true,
     default: Date.now,
@@ -17,6 +17,15 @@ const habitSchema = new mongoose.Schema({
   label: {
     type: String,
     required: false,
+  },
+  days: {
+    type: Array,
+    required: false,
+  },
+  completed: {
+    type: [String],
+    required: true,
+    default: [],
   },
 });
 
